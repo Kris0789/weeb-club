@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weeb Club - Premium Anime Fashion</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Noto+Sans+JP:wght@300;400;500;700&display=swap');
+        
+        :root {
+            --primary-black: #0a0a0a;
+            --elegant-gray: #1a1a1a;
+            --light-gray: #2a2a2a;
+            --royal-purple: #6a4c93;
+            --gold-accent: #ffd700;
+            --white: #ffffff;
+            --text-secondary: #b0b0b0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background: var(--primary-black);
+            color: var(--white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.8rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, var(--royal-purple), var(--gold-accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--royal-purple);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background: var(--gold-accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .cart-icon:hover {
+            transform: scale(1.1);
+            color: var(--royal-purple);
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--gold-accent);
+            color: var(--primary-black);
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .mobile-menu {
+            display: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+
+        /* Page Sections */
+        .page {
+            display: none;
+            min-height: 100vh;
+            padding-top: 80px;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* Home Page */
+        .hero-section {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-slider {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary-black) 0%, var(--elegant-gray) 50%, var(--royal-purple) 100%);
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+
+        .slide.active {
+            opacity: 1;
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 10;
+            position: relative;
+        }
+
+        .hero-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 4rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--white), var(--gold-accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            color: var(--text-secondary);
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(45deg, var(--royal-purple), var(--gold-accent));
+            color: var(--white);
+            padding: 1rem 2rem;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(106, 76, 147, 0.3);
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 20px rgba(255, 215, 0, 0.5); }
+            to { text-shadow: 0 0 30px rgba(255, 215, 0, 0.8); }
+        }
+
+        /* Shop Page */
+        .shop-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .shop-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .shop-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--royal-purple), var(--gold-accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .filters {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: var(--elegant-gray);
+            color: var(--white);
+            border: 2px solid var(--light-gray);
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--royal-purple);
+            border-color: var(--gold-accent);
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            background: var(--elegant-gray);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(135deg, var(--light-gray), var(--royal-purple));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: var(--gold-accent);
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-name {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-price {
+            font-size: 1.1rem;
+            color: var(--gold-accent);
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .add-to-cart {
+            width: 100%;
+            background: linear-gradient(45deg, var(--royal-purple), var(--gold-accent));
+            color: var(--white);
+            border: none;
+            padding: 0.8rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .add-to-cart:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(106, 76, 147, 0.3);
+        }
+
+        /* Product Detail Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background: var(--elegant-gray);
+            margin: 5% auto;
+            padding: 2rem;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 800px;
+            position: relative;
+        }
+
+        .close {
+            position: absolute;
+            right: 1rem;
+            top: 1rem;
+            font-size: 2rem;
+            cursor: pointer;
+            color: var(--text-secondary);
+        }
+
+        .close:hover {
+            color: var(--white);
+        }
+
+        .product-detail {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .size-selector {
+            margin: 1rem 0;
+        }
+
+        .size-options {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .size-btn {
+            padding: 0.5rem 1rem;
+            background: var(--light-gray);
+            color: var(--white);
+            border: 2px solid transparent;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .size-btn:hover, .size-btn.selected {
+            background: var(--royal-purple);
+            border-color: var(--gold-accent);
+        }
+
+        /* About Page */
+        .about-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .about-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            background: linear-gradient(45deg, var(--royal-purple), var(--gold-accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        /* Contact Page */
+        .contact-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .contact-form {
+            background: var(--elegant-gray);
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--white);
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            background: var(--light-gray);
+            border: 2px solid transparent;
+            border-radius: 8px;
+            color: var(--white);
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--royal-purple);
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: linear-gradient(45deg, var(--royal-purple), var(--gold-accent));
+            color: var(--white);
+            border: none;
+            padding: 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(106, 76, 147, 0.3);
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .social-icon {
+            font-size: 2rem;
+            color: var(--text-secondary);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .social-icon:hover {
+            color: var(--gold-accent);
+            transform: scale(1.2);
+        }
+
+        /* Cart Sidebar */
+        .cart-sidebar {
+            position: fixed;
+            right: -400px;
+            top: 0;
+            width: 400px;
+            height: 100%;
+            background: var(--elegant-gray);
+            z-index: 2000;
+            transition: all 0.3s ease;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+
+        .cart-sidebar.open {
+            right: 0;
+        }
+
+        .cart-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1999;
+            display: none;
+        }
+
+        .cart-overlay.open {
+            display: block;
+        }
+
+        .cart-item {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: var(--light-gray);
+            border-radius: 8px;
+        }
+
+        .cart-item-info {
+            flex: 1;
+        }
+
+        .remove-item {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+
+        .remove-item:hover {
+            color: #ff4444;
+        }
+
+        .cart-total {
+            border-top: 2px solid var(--light-gray);
+            padding-top: 1rem;
+            margin-top: 1rem;
+            text-align: center;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            background: linear-gradient(45deg, var(--royal-purple), var(--gold-accent));
+            color: var(--white);
+            border: none;
+            padding: 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .checkout-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(106, 76, 147, 0.3);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+
+            .shop-title {
+                font-size: 2rem;
+            }
+
+            .product-detail {
+                grid-template-columns: 1fr;
+            }
+
+            .cart-sidebar {
+                width: 100%;
+                right: -100%;
+            }
+
+            .filters {
+                justify-content: center;
+            }
+
+            .nav-container {
+                padding: 0 1rem;
+            }
+
+            .shop-container,
+            .about-container,
+            .contact-container {
+                padding: 1rem;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--primary-black);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--royal-purple);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--gold-accent);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">WEEB CLUB</div>
+            <ul class="nav-links">
+                <li><a href="#" onclick="showPage('home')">Home</a></li>
+                <li><a href="#" onclick="showPage('shop')">Shop</a></li>
+                <li><a href="#" onclick="showPage('about')">About</a></li>
+                <li><a href="#" onclick="showPage('contact')">Contact</a></li>
+            </ul>
+            <div class="cart-icon" onclick="toggleCart()">
+                🛒
+                <span class="cart-count" id="cartCount">0</span>
+            </div>
+            <div class="mobile-menu" onclick="toggleMobileMenu()">☰</div>
+        </div>
+    </nav>
+
+    <!-- Home Page -->
+    <div id="home" class="page active">
+        <section class="hero-section">
+            <div class="hero-slider">
+                <div class="slide active"></div>
+                <div class="slide"></div>
+                <div class="slide"></div>
+            </div>
+            <div class="hero-content">
+                <h1 class="hero-title">WEEB CLUB</h1>
+                <p class="hero-subtitle">Premium Anime Fashion for the Elite Otaku</p>
+                <a href="#" class="cta-button" onclick="showPage('shop')">Shop Collection</a>
+            </div>
+        </section>
+    </div>
+
+    <!-- Shop Page -->
+    <div id="shop" class="page">
+        <div class="shop-container">
+            <div class="shop-header">
+                <h1 class="shop-title">Our Collection</h1>
+                <p>Discover premium anime-inspired fashion</p>
+            </div>
+            
+            <div class="filters">
+                <button class="filter-btn active" onclick="filterProducts('all')">All</button>
+                <button class="filter-btn" onclick="filterProducts('t-shirts')">T-Shirts</button>
+                <button class="filter-btn" onclick="filterProducts('hoodies')">Hoodies</button>
+                <button class="filter-btn" onclick="filterProducts('limited')">Limited Edition</button>
+            </div>
+
+            <div class="products-grid" id="productsGrid">
+                <!-- Products will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- About Page -->
+    <div id="about" class="page">
+        <div class="about-container">
+            <h1 class="about-title">About Weeb Club</h1>
+            <div class="about-text">
+                <p>Weeb Club represents the pinnacle of anime fashion culture, where premium quality meets authentic otaku spirit. Founded by passionate anime enthusiasts, we curate exclusive designs that celebrate the artistry and storytelling of Japanese animation.</p>
+                
+                <p>Our mission is to bridge the gap between high-end fashion and anime culture, creating pieces that allow you to express your passion with sophistication and style. Each item in our collection is carefully crafted with attention to detail, using premium materials that ensure both comfort and durability.</p>
+                
+                <p>From subtle references that only true fans will recognize to bold statements that celebrate your favorite series, Weeb Club is your gateway to expressing your anime passion through fashion. Join our community of discerning otaku who refuse to compromise on quality or style.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Page -->
+    <div id="contact" class="page">
+        <div class="contact-container">
+            <h1 class="shop-title" style="text-align: center; margin-bottom: 2rem;">Contact Us</h1>
+            
+            <form class="contact-form" onsubmit="handleContactForm(event)">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="subject">Subject</label>
+                    <input type="text" id="subject" name="subject" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" rows="5" required></textarea>
+                </div>
+                
+                <button type="submit" class="submit-btn">Send Message</button>
+            </form>
+            
+            <div class="social-icons">
+                <div class="social-icon" title="Instagram">📷</div>
+                <div class="social-icon" title="Twitter">🐦</div>
+                <div class="social-icon" title="Discord">💬</div>
+                <div class="social-icon" title="TikTok">🎵</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Detail Modal -->
+    <div id="productModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeProductModal()">&times;</span>
+            <div class="product-detail" id="productDetail">
+                <!-- Product details will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+    <div class="cart-sidebar" id="cartSidebar">
+        <h2>Shopping Cart</h2>
+        <div id="cartItems"></div>
+        <div class="cart-total">
+            <h3>Total: $<span id="cartTotal">0.00</span></h3>
+            <button class="checkout-btn" onclick="checkout()">Checkout</button>
+        </div>
+    </div>
+
+    <script>
+        // Global state
+        let cart = [];
+        let products = [
+            {
+                id: 1,
+                name: "Anime Heroes Panel Tee",
+                price: 39.99,
+                category: "t-shirts",
+                image: "🎌",
+                description: "Premium black tee featuring iconic anime character panels with Japanese text. High-quality print on 100% cotton for ultimate comfort and durability.",
+                sizes: ["S", "M", "L", "XL", "XXL"]
+            },
+            {
+                id: 2,
+                name: "Swordsman Legend Tee",
+                price: 42.99,
+                category: "t-shirts",
+                image: "⚔️",
+                description: "Mint green oversized tee with detailed swordsman artwork and Japanese typography. Perfect for fans of epic anime adventures.",
+                sizes: ["S", "M", "L", "XL", "XXL"]
+            },
+            {
+                id: 3,
+                name: "Attack on Titan Final Season Tee",
+                price: 44.99,
+                category: "t-shirts",
+                image: "👹",
+                description: "Official Attack on Titan merchandise featuring the Colossal Titan with red rose accents. Premium quality with authentic Japanese text.",
+                sizes: ["M", "L", "XL", "XXL"]
+            },
+            {
+                id: 4,
+                name: "Demon Slayer Shadow Tee",
+                price: 41.99,
+                category: "t-shirts",
+                image: "👺",
+                description: "Exclusive Demon Slayer design with dramatic character artwork and flame effects. Made with premium cotton blend for lasting quality.",
+                sizes: ["S", "M", "L", "XL"]
+            },
+            {
+                id: 5,
+                name: "Jujutsu Kaisen Cursed Energy Tee",
+                price: 46.99,
+                category: "limited",
+                image: "🔴",
+                description: "Limited edition red tee featuring cursed energy artwork with authentic patches. Only 200 pieces available - collector's item for true fans.",
+                sizes: ["M", "L", "XL"]
+            },
+            {
+                id: 6,
+                name: "Dragon Slayer Hoodie",
+                price: 89.99,
+                category: "hoodies",
+                image: "🐉",
+                description: "Premium quality hoodie featuring an exclusive dragon design inspired by classic anime battles. Made with soft cotton blend for ultimate comfort.",
+                sizes: ["S", "M", "L", "XL", "XXL"]
+            },
+            {
+                id: 7,
+                name: "Ninja Shadow Hoodie",
+                price: 94.99,
+                category: "hoodies",
+                image: "🥷",
+                description: "Stealth-inspired hoodie with hidden ninja elements. Limited edition design for true shinobi enthusiasts.",
+                sizes: ["M", "L", "XL", "XXL"]
+            },
+            {
+                id: 8,
+                name: "Phoenix Rising Hoodie",
+                price: 99.99,
+                category: "limited",
+                image: "🔥",
+                description: "Limited edition phoenix design representing rebirth and power. Only 100 pieces available worldwide.",
+                sizes: ["M", "L", "XL"]
+            }
+        ];
+
+        // Page navigation
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            document.getElementById(pageId).classList.add('active');
+            
+            if (pageId === 'shop') {
+                loadProducts();
+            }
+        }
+
+        // Load products
+        function loadProducts(filter = 'all') {
+            const grid = document.getElementById('productsGrid');
+            const filteredProducts = filter === 'all' ? products : products.filter(p => p.category === filter);
+            
+            grid.innerHTML = filteredProducts.map(product => `
+                <div class="product-card fade-in" data-category="${product.category}">
+                    <div class="product-image">${product.image}</div>
+                    <div class="product-info">
+                        <h3 class="product-name">${product.name}</h3>
+                        <p class="product-price">$${product.price}</p>
+                        <button class="add-to-cart" onclick="addToCart(${product.id})">Add to Cart</button>
+                        <button class="add-to-cart" onclick="showProductDetail(${product.id})" style="background: var(--light-gray); margin-top: 0.5rem;">View Details</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Filter products
+        function filterProducts(category) {
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            loadProducts(category);
+        }
+
+        // Add to cart
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            const existingItem = cart.find(item => item.id === productId);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({...product, quantity: 1, selectedSize: 'M'});
+            }
+            
+            updateCartUI();
+            showNotification(`${product.name} added to cart!`);
+        }
+
+        // Update cart UI
+        function updateCartUI() {
+            const cartCount = document.getElementById('cartCount');
+            const cartItems = document.getElementById('cartItems');
+            const cartTotal = document.getElementById('cartTotal');
+            
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            
+            cartCount.textContent = totalItems;
+            cartTotal.textContent = totalPrice.toFixed(2);
+            
+            cartItems.innerHTML = cart.map(item => `
+                <div class="cart-item">
+                    <div class="product-image" style="width: 60px; height: 60px; font-size: 2rem;">${item.image}</div>
+                    <div class="cart-item-info">
+                        <h4>${item.name}</h4>
+                        <p>Size: ${item.selectedSize}</p>
+                        <p>Qty: ${item.quantity}</p>
+                        <p>$${(item.price * item.quantity).toFixed(2)}</p>
+                    </div>
+                    <button class="remove-item" onclick="removeFromCart(${item.id})">×</button>
+                </div>
+            `).join('');
+        }
+
+        // Remove from cart
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            updateCartUI();
+        }
+
+        // Toggle cart
+        function toggleCart() {
+            const sidebar = document.getElementById('cartSidebar');
+            const overlay = document.getElementById('cartOverlay');
+            
+            sidebar.classList.toggle('open');
+            overlay.classList.toggle('open');
+        }
+
+        // Show product detail modal
+        function showProductDetail(productId) {
+            const product = products.find(p => p.id === productId);
+            const modal = document.getElementById('productModal');
+            const detail = document.getElementById('productDetail');
+            
+            detail.innerHTML = `
+                <div>
+                    <div class="product-image" style="height: 400px; font-size: 8rem;">${product.image}</div>
+                </div>
+                <div>
+                    <h2>${product.name}</h2>
+                    <p class="product-price" style="font-size: 1.5rem; margin: 1rem 0;">${product.price}</p>
+                    <p style="color: var(--text-secondary); margin-bottom: 1rem;">${product.description}</p>
+                    
+                    <div class="size-selector">
+                        <label>Size:</label>
+                        <div class="size-options">
+                            ${product.sizes.map(size => `
+                                <button class="size-btn" onclick="selectSize('${size}')">${size}</button>
+                            `).join('')}
+                        </div>
+                    </div>
+                    
+                    <button class="add-to-cart" onclick="addToCart(${product.id}); closeProductModal();" style="width: 100%; margin-top: 1rem;">
+                        Add to Cart
+                    </button>
+                    
+                    <div style="margin-top: 2rem;">
+                        <h4>Customer Reviews</h4>
+                        <div style="color: var(--gold-accent); margin: 0.5rem 0;">★★★★★ (4.8/5)</div>
+                        <p style="color: var(--text-secondary); font-size: 0.9rem;">"Amazing quality and design! Perfect fit and the print is super durable." - Verified Buyer</p>
+                    </div>
+                </div>
+            `;
+            
+            modal.style.display = 'block';
+        }
+
+        // Close product modal
+        function closeProductModal() {
+            document.getElementById('productModal').style.display = 'none';
+        }
+
+        // Select size
+        function selectSize(size) {
+            document.querySelectorAll('.size-btn').forEach(btn => btn.classList.remove('selected'));
+            event.target.classList.add('selected');
+        }
+
+        // Handle contact form
+        function handleContactForm(event) {
+            event.preventDefault();
+            showNotification('Thank you for your message! We\'ll get back to you soon.');
+            event.target.reset();
+        }
+
+        // Checkout function
+        function checkout() {
+            if (cart.length === 0) {
+                showNotification('Your cart is empty!');
+                return;
+            }
+            showNotification('Redirecting to checkout... (Demo)');
+            setTimeout(() => {
+                cart = [];
+                updateCartUI();
+                toggleCart();
+            }, 2000);
+        }
+
+        // Show notification
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 20px;
+                background: var(--royal-purple);
+                color: white;
+                padding: 1rem 2rem;
+                border-radius: 8px;
+                z-index: 3000;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+                animation: slideIn 0.3s ease;
+            `;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        // Toggle mobile menu
+        function toggleMobileMenu() {
+            // Mobile menu functionality would go here
+            showNotification('Mobile menu - Feature coming soon!');
+        }
+
+        // Hero slider
+        function initHeroSlider() {
+            const slides = document.querySelectorAll('.slide');
+            let currentSlide = 0;
+            
+            setInterval(() => {
+                slides[currentSlide].classList.remove('active');
+                currentSlide = (currentSlide + 1) % slides.length;
+                slides[currentSlide].classList.add('active');
+            }, 4000);
+        }
+
+        // Initialize the website
+        document.addEventListener('DOMContentLoaded', function() {
+            loadProducts();
+            initHeroSlider();
+            updateCartUI();
+        });
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('productModal');
+            if (event.target === modal) {
+                closeProductModal();
+            }
+        }
+
+        // Add keyframe animation for notifications
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
